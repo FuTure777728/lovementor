@@ -20,6 +20,13 @@ app.secret_key = SECRET_KEY
 # 启动时初始化数据库
 init_db()
 
+# 启动诊断
+import sys
+_key_ok = DEEPSEEK_API_KEY and DEEPSEEK_API_KEY != "your-api-key-here" and len(DEEPSEEK_API_KEY) > 10
+print(f"[启动] DeepSeek API Key: {'已配置 ✅' if _key_ok else '未配置 ⚠️ 使用降级方案'}", file=sys.stderr)
+if not _key_ok:
+    print(f"[启动] 请在 Railway Variables 中设置 DEEPSEEK_API_KEY", file=sys.stderr)
+
 
 # ============================================================
 # 页面路由

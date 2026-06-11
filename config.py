@@ -4,10 +4,11 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+# 只在本地开发时加载 .env 文件，生产环境（Railway）用系统环境变量
+load_dotenv(override=False)
 
 # DeepSeek API 配置
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "your-api-key-here")
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY") or os.getenv("DEEPSEEK_API_KEY") or "your-api-key-here"
 DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1/chat/completions"
 DEEPSEEK_MODEL = "deepseek-chat"
 
