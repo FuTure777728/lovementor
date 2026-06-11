@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💌 情感良师 · LoveMentor</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-icon">💌</span>
+                <span class="logo-text">情感良师</span>
+            </div>
+            <!-- 用户身份切换 -->
+            <div class="user-switcher" id="userSwitcher">
+                <button class="user-btn active" data-user="水水">
+                    <span class="user-avatar">🐼</span>
+                    <span class="user-name">水水</span>
+                </button>
+                <button class="user-btn" data-user="小白">
+                    <span class="user-avatar">🐰</span>
+                    <span class="user-name">小白</span>
+                </button>
+            </div>
+            <nav class="nav-tabs" id="navTabs">
+                <button class="nav-tab active" data-tab="chat">
+                    <span class="tab-icon">💬</span>
+                    <span class="tab-label">情感倾诉</span>
+                </button>
+                <button class="nav-tab" data-tab="mailbox">
+                    <span class="tab-icon">💌</span>
+                    <span class="tab-label">情侣信箱</span>
+                    <span class="tab-badge" id="mailboxBadge" style="display:none;">0</span>
+                </button>
+                <button class="nav-tab" data-tab="mediation">
+                    <span class="tab-icon">🕊️</span>
+                    <span class="tab-label">矛盾调解</span>
+                </button>
+                <button class="nav-tab" data-tab="zodiac">
+                    <span class="tab-icon">⭐</span>
+                    <span class="tab-label">星座分析</span>
+                </button>
+                <button class="nav-tab" data-tab="history">
+                    <span class="tab-icon">📜</span>
+                    <span class="tab-label">心情记录</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+
+        <!-- ============ Tab 1: 情感倾诉 ============ -->
+        <section class="tab-content active" id="tab-chat">
+            <div class="chat-container">
+                <!-- 欢迎消息 -->
+                <div class="chat-welcome" id="chatWelcome">
+                    <div class="welcome-avatar" id="welcomeAvatar">🐼</div>
+                    <h2 id="welcomeTitle">嗨，我是白开水</h2>
+                    <p id="welcomeDesc">你的情感良师益友。无论是甜蜜、纠结还是心事，<br>我都在这儿，认真听你说。</p>
+                    <div class="welcome-hints">
+                        <span class="hint-label">试试这些话题：</span>
+                        <button class="hint-chip" data-text="今天和TA聊天，感觉TA心不在焉的...">💭 沟通的小困扰</button>
+                        <button class="hint-chip" data-text="刚认识一个人，有点心动，但不知道怎么开口">💕 心动的迷茫</button>
+                        <button class="hint-chip" data-text="最近和TA在一起真的很开心，想记录下来">✨ 恋爱的甜蜜</button>
+                    </div>
+                </div>
+
+                <!-- 聊天消息区 -->
+                <div class="chat-messages" id="chatMessages"></div>
+
+                <!-- 情感标签显示 -->
+                <div class="sentiment-bar" id="sentimentBar" style="display:none;">
+                    <div class="sentiment-tag" id="sentimentTag"></div>
+                    <div class="sentiment-emotions" id="sentimentEmotions"></div>
+                </div>
+
+                <!-- 输入区域 -->
+                <div class="chat-input-area">
+                    <div class="chat-input-wrapper">
+                        <textarea
+                            id="chatInput"
+                            class="chat-input"
+                            placeholder="说说你的心事吧..." id="chatInputPlaceholder"
+                            rows="2"
+                            maxlength="2000"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn" title="发送">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13"/>
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="input-footer">
+                        <span class="char-count"><span id="charCount">0</span>/2000</span>
+                        <span class="input-hint">按 Enter 发送，Shift+Enter 换行</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ Tab 2: 星座分析 ============ -->
+        <section class="tab-content" id="tab-zodiac">
+            <div class="zodiac-container">
+                <!-- 星座匹配 -->
+                <div class="zodiac-card">
+                    <div class="card-header">
+                        <span class="card-icon">💑</span>
+                        <h3>星座恋爱匹配</h3>
+                        <p class="card-desc">看看你们在星空下的缘分</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="zodiac-select-row">
+                            <div class="zodiac-select-group">
+                                <label>你的星座</label>
+                                <select id="matchSign1" class="zodiac-select">
+                                    <option value="">选择星座</option>
+                                </select>
+                            </div>
+                            <div class="zodiac-vs">❤️</div>
+                            <div class="zodiac-select-group">
+                                <label>TA的星座</label>
+                                <select id="matchSign2" class="zodiac-select">
+                                    <option value="">选择星座</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn-primary" id="matchBtn">
+                            <span>✨</span> 查看匹配度
+                        </button>
+                        <div class="match-result" id="matchResult" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <!-- 今日运势 -->
+                <div class="zodiac-card">
+                    <div class="card-header">
+                        <span class="card-icon">🌟</span>
+                        <h3>今日爱情运势</h3>
+                        <p class="card-desc">看看今天星星对你说什么</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="zodiac-select-group fortune-select">
+                            <label>选择你的星座</label>
+                            <select id="fortuneSign" class="zodiac-select">
+                                <option value="">选择星座</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" id="fortuneBtn">
+                            <span>🔮</span> 查看今日运势
+                        </button>
+                        <div class="fortune-result" id="fortuneResult" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ Tab 3: 情侣信箱 ============ -->
+        <section class="tab-content" id="tab-mailbox">
+            <div class="couple-container mailbox-layout">
+                <!-- 写信区 -->
+                <div class="mailbox-write">
+                    <div class="card-header">
+                        <span class="card-icon">✉️</span>
+                        <h3>写一封信给TA</h3>
+                        <p class="card-desc">悄悄话，只有你们能看见</p>
+                    </div>
+                    <textarea id="letterMessage" class="letter-textarea" placeholder="亲爱的，今天我想说..." maxlength="1000" rows="6"></textarea>
+                    <div class="letter-footer">
+                        <span class="char-count"><span id="letterCharCount">0</span>/1000</span>
+                        <button class="btn-primary btn-send-letter" id="sendLetterBtn">
+                            <span>💌</span> 飞鸽传书
+                        </button>
+                    </div>
+                </div>
+                <!-- 收件箱 -->
+                <div class="mailbox-inbox">
+                    <div class="card-header">
+                        <span class="card-icon">📬</span>
+                        <h3>收件箱</h3>
+                        <p class="card-desc" id="inboxTitle">TA写给你的信</p>
+                    </div>
+                    <div class="inbox-list" id="inboxList">
+                        <div class="history-empty">
+                            <span class="empty-icon">📮</span>
+                            <p>还没有收到信，期待TA的第一封信吧～</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ Tab 4: 矛盾调解 ============ -->
+        <section class="tab-content" id="tab-mediation">
+            <div class="mediation-container">
+                <!-- 调解流程指示 -->
+                <div class="mediation-steps" id="mediationSteps">
+                    <div class="step-item active" data-step="1">
+                        <div class="step-dot">1</div>
+                        <span>水水 🐼</span>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-dot">2</div>
+                        <span>小白 🐰</span>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-dot">💡</div>
+                        <span>白开水的调解</span>
+                    </div>
+                </div>
+
+                <!-- 调解输入区 -->
+                <div class="mediation-input-area" id="mediationInputArea">
+                    <div class="mediation-prompt">
+                        <span class="prompt-icon">🕊️</span>
+                        <p id="mediationPrompt">说说你们之间发生的事情吧，白开水来帮你们捋一捋～</p>
+                    </div>
+                    <textarea id="mediationMessage" class="letter-textarea" placeholder="描述一下你们的矛盾和你的感受..." maxlength="1500" rows="5"></textarea>
+                    <button class="btn-primary" id="submitMediationBtn">
+                        <span>🤝</span> 提交我的视角
+                    </button>
+                    <input type="hidden" id="currentSessionKey" value="">
+                </div>
+
+                <!-- 调解结果区 -->
+                <div class="mediation-result" id="mediationResult" style="display:none;"></div>
+
+                <!-- 调解历史 -->
+                <div class="mediation-history" id="mediationHistory">
+                    <h4>📋 调解记录</h4>
+                    <div class="mediation-history-list" id="mediationHistoryList">
+                        <p class="empty-hint">还没有调解记录</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ Tab 5: 心情记录 ============ -->
+        <section class="tab-content" id="tab-history">
+            <div class="history-container">
+                <div class="history-header">
+                    <h3>📜 心情记录</h3>
+                    <p>每一次倾诉，都是与自己内心的对话</p>
+                    <button class="btn-text" id="clearHistoryBtn">清空记录</button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="history-empty">
+                        <span class="empty-icon">📝</span>
+                        <p>还没有记录，去倾诉一下心情吧</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading 动画 -->
+    <div class="loading-overlay" id="loadingOverlay" style="display:none;">
+        <div class="loading-dots">
+            <span></span><span></span><span></span>
+        </div>
+        <p>白开水正在冒泡中...</p>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
