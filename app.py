@@ -5,7 +5,7 @@
 from flask import Flask, request, jsonify, render_template
 from datetime import datetime
 
-from config import DEBUG, HOST, PORT, SECRET_KEY
+from config import DEBUG, HOST, PORT, SECRET_KEY, DEEPSEEK_API_KEY
 from services.sentiment import analyze_sentiment, generate_response
 from services.zodiac import analyze_compatibility, get_daily_fortune, get_zodiac_list
 from services.history import init_db, save_record, get_records, delete_all_records
@@ -253,6 +253,21 @@ def api_mediation_history():
     limit = request.args.get("limit", 10, type=int)
     records = get_mediation_history(limit=min(limit, 20))
     return jsonify({"records": records})
+
+
+# ============================================================
+# 健康检查
+# ============================================================
+
+@app.route("/api/health", methods=["GET"])
+def api_health():
+    """诊断 API 状态"""
+    key_status = "ok" if DEEPSEEK_API_KEY and DEEPSEEK_API_KEY != "your-api-key-here" and len(DEEPSEEK_API_KEY) > 10 else "missing"
+    return jsonify({
+        "status": "running",
+        "api_key_configured": key_status == "ok",
+        "api_key_preview": DEEPSEEK_API_KEY[:10] + "..." if key_status == "ok" else "N/A",
+    })
 
 
 # ============================================================
